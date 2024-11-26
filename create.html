@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+    <title>Создание зявки</title>
+</head>
+<body>
+    <a href="create.html">Создание заявки</a>
+    <a href="index.html">Список заявок</a>
+    <a href="update.html">Обновление заявки</a><br>
+    <iframe name="frame" style="display: none;"></iframe>
+    <form target="frame" action="http://127.0.0.1:8000/requests/" method="post">
+        <input required placeholder="Номер" type="number" name="number"/><br/>
+        <label for="data">Дата начала</label><br/>
+        <input required type="date" name="data"/><br/>
+        <input required placeholder="Вид оргтехники" type="text" name="typeEquip"/><br/>
+        <input required placeholder="Модель" type="text" name="modul"/><br/>
+        <input required placeholder="Описание проблемы" type="text" name="problemDescription"/><br/>
+        <input required placeholder="Клиент" type="text" name="clientName"/><br/>
+        <input required placeholder="Номер телефона" type="tell" name ="phoneNumber" pattern="2[0-9]{3}-[0-9]{3}" pattern=r"^\d{11}$"/><br/>
+    </form>
+    <input type="submit" value="Создание"/>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<head>
+    <title>Список заявок</title>
+</head>
+<body>
+    <a href="create.html">Создание заявки</a>
+    <a href="orders.html">Список заявок</a>
+    <a href="update.html">Обновление заявки</a>
+    <div>
+        <input number="requests" placeholder = "Номер"/>
+        <button onclick="GetFilter()">Найти</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Номер заявки</th>
+                <th>Дата добавления</th>
+                <th>Вид оргтехники</th>
+                <th>Модель</th>
+                <th>Описание проблемы</th>
+                <th>ФИО клиента</th>
+                <th>Статус заявки</th>
+                <th>Мастер</th>
+                <th>Номер телефона</th>
+                </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+    </table>
+    <script>
+        let table = document.querySelector("tbody");
+        GetOrders();
+
+        async function GetOrders(param = null) {
+            let response = param ?
+            await fetch(`http://127.0.0.1:8000//requests/`).then(data => data.json()):
+            await fetch("http://127.0.0.1:8000//requests/").then(data => data.json())
+            if(response.message)
+                alert(response.message);
+            response.repo.forEach(o => {
+               let tr = document.createElement("tr");
+
+               tr.innerHTML = `
+                    <td>${o.number}</td>
+                    <td>${o.data}</td>
+                    <td>${o.status}</td>
+                    <td>${o.problemDescription}</td>
+                    <td>${o.responsible}</td>
+                    <td>${o.client}</td>
+                    <td>${o.parts}</td>
+                    <td>${o.comments}</td>`;
+
+                table.append(tr);
+            });
+        }
+
+    function GetFilter() {
+        table.innerHTML = ""
+        let param = document.getElementById("requests").void;
+        GetOrders(param)
+    }
+    </script>
+    <style>
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2fca29;
+            color: white;
+        }
+
+        tr:hover {background-color: #f1f1f1;}
+    </style>
+</body>
+</html>
